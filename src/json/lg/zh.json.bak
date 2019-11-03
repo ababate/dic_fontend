@@ -1,0 +1,109 @@
+{
+  "_comment":"全局",
+  "info": "中文",
+  "version": "1.0.0",
+  "AppTitle": "数字图像计算系统",
+  "start": "开始使用",
+  "str1": "哈哈哈嗯",
+  "OK": "确定",
+
+  "_comment1":"菜单栏",
+  "file":"项目",
+  "area": "区域",
+  "data":"数据",
+  "calculate":"计算",
+  "result":"结果",
+  "about":"关于",
+  "login":"登录",
+  "mine":"我的",
+  "register":"注册",
+  "account":"账户",
+  "recharge":"充值",
+  "cancel":"取消",
+
+  "_comment2":"文件",
+  "open":"打开项目",
+  "save":"保存项目",
+  "saveAll":"保存全部",
+  "exit":"退出",
+  "uploadfile":"上传文件",
+
+  "_comment3":"数据",
+  "imageFolder":"图片文件夹",
+  
+  "_comment4":"计算结果",
+  "resultList":"结果列表",
+
+  "chooseImage":"图片选择",
+  "deleteImage":"图片删除",
+  "chooseSpecialArea":"自定义区域选择",
+  "chooseAreaStartPoint":"选区起始点（左上角）坐标",
+  "chooseAreaSize":"选区尺寸（宽，高）",
+
+  "chooseAlgorithm":"算法选择",
+  "setParam":"参数设置",
+  "startRun":"开始计算",
+
+  "displacement":"位移",
+  "strainState":"应变状态",
+  "mainStrain":"主应变",
+
+  "loginAccount":"登录账号：",
+  "registerAccount":"注册账号：",
+  "userNameTip":"请输入用户名！",
+  "name":"请输入称呼!",
+  "passwordTip":"请输入密码!",
+  "welcomeUse":"欢迎使用",
+  "userName":"用户名",
+  "password":"密码",
+  "cname":"名称",
+
+  "newProject":"新建项目",
+  "exportData":"导出数据",
+  "image":"图像",
+  "histogram":"直方图",
+  "referenceImage":"选择原始图",
+  "deformedImage":"选择变形图",
+  "imageProcess":"图像处理",
+
+  "edit":"编辑",
+  "drawRect":"绘制矩形",
+  "cutoffArea":"切除区域",
+  "calibration":"校准",
+
+  "setVariable":"变量设置",
+
+  "postProcess":"后处理",
+  "addFunc":"添加函数",
+  "visualization":"可视化",
+  "checkout":"检验",
+  "checkRes":"查看结果",
+
+  "myProject":"我的项目",
+  "projectInfo":"项目信息",
+  "baseProInfo":"基本项目信息",
+  "projectName":"项目名称",
+  "inputProjectName":"请输入项目名称",
+  "createTime":"创建时间",
+  "updateTime":"更新时间",
+  "amountOfReferences":"原始图数量",
+  "amountOfDeformeds":"变形图数量",
+  "amountOfTasks":"计算任务数量",
+  "amountOfResults":"生成结果组数",
+
+  "paramInfo":"参数信息",
+  "convergenceAccuracy":"收敛精度",
+  "coreNumber":"计算核数",
+  "relevanceThreshold":"相关性阀值",
+  "spacialResolution":"位移分辨率",
+
+  "variable":"计算变量",
+  "chooseVar":"选择的变量",
+  "customVar":"自定义变量",
+
+  "help":"帮助",
+
+  "projectStatus":"项目状态",
+
+  "algorithm":"算法选择"
+}

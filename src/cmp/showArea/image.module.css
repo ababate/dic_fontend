@@ -1,0 +1,21 @@
+.box{
+	float: left;
+	width: 80px;
+	height: 80px;
+	margin:10px 0 0 10px;
+}
+.img{
+	/* float: left;
+	width: 80px;
+	height: 80px;
+	margin:10px 0 0 10px; */
+	width: 80px;
+	height: 80px;
+}
+.name{
+	width: 80px;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap; 
+	text-overflow: ellipsis; 
+}

@@ -1,0 +1,122 @@
+import React from 'react';
+import Component from '../../../core/MyComponent';
+import Style from './ChooseDomain.module.css';
+import { Button, Modal } from 'antd';
+import ReactCrop from 'react-image-crop';
+import "react-image-crop/dist/ReactCrop.css";
+
+class ChooseDomain extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      crop: {
+        unit: "px"
+      },
+      modWid: "",
+      imgWid: 0,
+      imgHet: 0,
+    }
+  }
+
+  componentDidMount() {
+    this.on('nav_drawRect', () => {
+      this.setState({
+        visible: true,
+      })
+    })
+  }
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    })
+  };
+
+  handleOk = () => {
+    const { crop, imgWid, imgHet } = this.state;
+    this.setState({
+      visible: false,
+    })
+
+    if (crop.x>imgWid) {
+      this.Cache.X = crop.x.toString()
+    }
+    else {
+      this.Cache.X = (crop.x+1).toString()
+    }
+
+    if (crop.y>imgHet) {
+      this.Cache.Y = crop.y.toString()
+    }
+    else {
+      this.Cache.Y = (crop.y+1).toString()
+    }
+
+    if (crop.width-1<0) {
+      this.Cache.W = '0'
+    }
+    else {
+      this.Cache.W = (crop.width-1).toString()
+    }
+
+    if (crop.height-1<0) {
+      this.Cache.H = '0'
+    }
+    else {
+      this.Cache.H = (crop.height-1).toString()
+    }
+
+    this.emit('setParams',this.Cache);
+  };
+  
+  onImageLoaded = image => {
+    this.imageRef = image;
+    this.setState ({
+      modWid: (image.naturalWidth + 100).toString() + "px",
+      imgWid: image.naturalWidth,
+      imgHet: image.naturalHeight,
+    	});
+  };
+  
+  onCropChange = (crop) => {
+    this.setState({ crop });
+  };
+
+  render() {
+    const { lg, fileA } = this.props;
+    const { crop, imgWid, imgHet, modWid } = this.state;
+
+    return (
+      <div>
+        <Modal
+          title={lg.chooseSpecialArea}
+          visible={this.state.visible}
+          okText={lg.OK}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          cancelText={lg.cancel}
+          width={modWid}
+        >
+          
+          <div className={Style.image}>
+            <ReactCrop
+              src={fileA.originalUrl}
+              crop={crop}
+              onImageLoaded={this.onImageLoaded}
+              onChange={this.onCropChange}
+            />
+
+            <div className={Style.input}>
+              <div>{lg.chooseAreaStartPoint}：X= {crop.x>imgWid ? crop.x : crop.x+1} px, Y= {crop.y>imgHet ? crop.y : crop.y+1} px.</div>
+              <div>{lg.chooseAreaSize}：W= {(crop.width)-1<0 ? 0 : crop.width-1} px, H= {(crop.height)-1<0 ? 0 : crop.height-1} px.</div>
+            </div>
+          </div>
+
+        </Modal>
+      </div>
+    );
+  }
+}
+
+export default ChooseDomain;
