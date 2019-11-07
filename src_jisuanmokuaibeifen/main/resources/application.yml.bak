@@ -1,0 +1,29 @@
+fileroot: E:\luozhilei\test_result_saving
+demoroot: E:\luozhilei\imgcul
+requestUrl: http://127.0.0.1:9090/imagecul
+server:
+  port: 8888
+  servlet:
+    context-path: /imgCul
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/imgcul
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  servlet:
+      multipart:
+        max-file-size: 50MB
+        max-request-size: 100MB
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    servlet:
+      content-type: text/html
+    enabled: true
+    encoding: utf-8
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+  resources:
+    static-locations: file:${fileroot},classpath:/static

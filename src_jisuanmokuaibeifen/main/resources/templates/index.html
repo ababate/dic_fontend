@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .my_table {
+            padding: 45px 15px 15px;
+            border-color: #ddd;
+            background-color: rgb(243, 243, 243);
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 4px 4px 4px 4px;
+        }
+
+        .my_form {
+            padding: 10px 15px 15px;
+            border-color: #ddd;
+            background-color: rgb(243, 243, 243);
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 4px 4px 4px 4px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox input {
+            vertical-align: middle;
+            margin: 0;
+            height: 20px;
+        }
+
+        .checkbox label {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 style="margin-left:100px;">订单检索系统</h1>
+        <p style="margin-left:100px;">“惠必达”致力于提供高校送餐服务，万众创新，大众创业！</p>
+    </div>
+    <div class="my_form col-md-10 col-md-offset-1">
+        <h3>筛选规则</h3>
+        <hr style="margin:0 0 10px 0px;height: 2px;" color="#999" />
+        <div class="form-inline">
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label>用户id&nbsp;&nbsp;&nbsp;&nbsp;:</label>
+                <input type="text" id="user_id" name="user_id" class="form-control" placeholder="">
+            </div>
+                <button type="button" onclick="select()" style="position: relative;right: -500px;" class="btn btn-lg btn-info right">查询</button>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="my_table col-md-10 col-md-offset-1" data-example-id="hoverable-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>用户名</th>
+                    <th>年龄</th>
+                    <th>地址</th>
+                </tr>
+            </thead>
+            <tbody id="orderinfo">
+
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+<script>
+
+    function update(data){
+        var tableContent = "";
+        for (var i = 0; i < data.length; i++) {
+            tableContent = tableContent + '<tr>';
+            tableContent = tableContent + '<td>' + data[i].id + '</td>';
+            tableContent = tableContent + '<td>' + data[i].name + '</td>';
+            tableContent = tableContent + '<td>' + data[i].age + '</td>';
+            tableContent = tableContent + '<td>' + data[i].address + '</td>';
+            tableContent += '</tr>';
+        }
+        //$("#orderinfo").html(tableContent);
+        document.getElementById("orderinfo").innerHTML = tableContent;
+    }
+    $.ajax({
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        url: "query",
+        dataType: 'json',
+        success: function(data) {
+            update(data);
+        }
+    });
+
+
+
+    //提交表单函数（仅用于底部的分页按钮）
+    function select(){
+        var my_json = {
+            id : $('#user_id').val()
+        };
+        var json = JSON.stringify(my_json);
+        console.log(json);
+        $.ajax({
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            url: "select",
+            data: json,
+            dataType: 'json',
+            success: function(data) {
+                update(data);
+            }
+        });
+
+    }
+
+
+
+</script>
+</html>
