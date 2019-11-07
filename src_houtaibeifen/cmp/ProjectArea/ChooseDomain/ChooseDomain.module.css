@@ -1,0 +1,33 @@
+.ButtonGroup {
+	margin-top: 10px;
+}
+.ButtonGroup button{
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.hide {
+	display: none;
+}
+.show {
+	display: inline;
+	z-index: 999;
+}
+.image {
+	display: block;
+	margin: auto;
+	text-align: center;
+}
+.input {
+	font-size: 15px;
+	text-align: center;
+}
+.crop {
+	display: block;
+	margin: auto;
+	width: 1000px; 
+	height: 500px; 
+    overflow-x: auto;
+	overflow-y: auto;
+}
+

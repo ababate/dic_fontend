@@ -1,0 +1,54 @@
+.wrap {
+  position: relative;
+  width: 1024px;
+  height: 94%;
+  top: 2%;
+  margin: 0 auto;
+  overflow: hidden;
+  /*background-color: black;*/
+  color: white;
+  border-radius: 4px;
+}
+.title {
+  position: absolute;
+  top: 100px;
+  left: 40px;
+  font-size: 75px;
+}
+.lgeng {
+  position: absolute;
+  font-size: 18px;
+  bottom: 20px;
+  left: 40px;
+  cursor: pointer;
+}
+.lgeng:hover {
+  transform: scale(1.2);
+}
+.lgzh {
+  position: absolute;
+  font-size: 18px;
+  bottom: 20px;
+  left: 100px;
+  cursor: pointer;
+}
+.lgzh:hover {
+  transform: scale(1.2);
+}
+.start {
+  position: absolute;
+  font-size: 50px;
+  bottom: 20px;
+  right: 40px;
+  cursor: pointer;
+}
+.start:hover {
+  transform: scale(1.2);
+}
+.startAm {
+  animation: goRight .5s ease-in;
+}
+@keyframes goRight {
+  0% {}
+  100% {right:-200px;}
+}

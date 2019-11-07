@@ -1,0 +1,251 @@
+import React from 'react';
+import { Upload, Icon} from 'antd';
+import Component from '../../core/MyComponent';
+import Folder from './folder';
+import Image from './image';
+import Style from './showArea.module.css';
+// let data = require('./json/folder.json');
+class ShowArea extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      folderData: [],
+      imageData: [],
+      mainImageData: [],
+      filename: ['Reference','Deformed','U','V','Exx','Exy','Eyx','Eyy','E1','E2','Arg1','Arg2','Vectors'],
+    }
+  }
+  componentWillUnmount() {
+    const arr = ['nav_displacement', 'nav_strainState', 'nav_mainStrain', 'nav_save', 'nav_saveAll',
+    'nav_u', 'nav_v', 'nav_xx', 'nav_xy', 'nav_E1', 'nav_E2'];
+    arr.forEach( v => {
+      this.off(v);
+    });
+    console.log(this.Utils.MyEvent.handlers);
+  }
+  componentDidMount() {
+    //根据头部按钮切换交互区和展示区
+    this.on('nav_displacement', (obj) => {
+      if (obj.pageName !== 'show') {
+        this.emit('changePage', 'show');
+      }
+    });
+    this.on('nav_strainState', (obj) => {
+      if (obj.pageName !== 'show') {
+        this.emit('changePage', 'show');
+      }
+    });
+    // this.on('nav_mainStrain', (obj) => {
+    //   if (obj.pageName != 'show') {
+    //     this.emit('changePage', 'show');
+    //   }
+    // })
+    this.on('nav_mainStrain', (obj) => {
+      if (obj.pageName !== 'show') {
+        this.emit('changePage', 'show');
+      }
+    });
+    this.on('nav_save', (obj) => {
+      if (obj.pageName !== 'show') {
+        this.emit('changePage', 'show');
+      }
+    });
+    this.on('nav_saveAll', (obj) => {
+      if (obj.pageName !== 'show') {
+        this.emit('changePage', 'show');
+      }
+    });
+    //选择展示的图片
+    this.on('nav_u',()=>this.selectImage(0));
+    this.on('nav_v',()=>this.selectImage(1));
+    this.on('nav_xx',()=>this.selectImage(2));
+    this.on('nav_xy',()=>this.selectImage(3));
+    this.on('nav_E1',()=>this.selectImage(4));
+    this.on('nav_E2',()=>this.selectImage(5));
+
+    //保存图片到本地
+    this.on('nav_save',()=>this.savetImage());
+    this.on('nav_saveAll',()=>this.savetImageAll());
+
+    //获取结果
+    this.Utils.baseFetch({
+      type: 'GET',
+      url:'/imagecul/task/result',
+      // url: './json/folder.json',
+      success: res => {
+        if(res.code === 200){
+          res.data = res.data.map( v => {
+            v.isOpen = false;
+            return v
+          });
+          this.setState({
+            folderData: res.data,
+          })
+        }
+      }
+    })
+  }
+  folderOnChange(data) {
+    data = this.Utils.deepCopy(data);
+    let { folderData, filename } = this.state;
+    folderData = folderData.map( v => {
+      if (!data.isOpen) {
+        v.isOpen = false;
+      }
+      if (data.id === v.id) {
+        v.isOpen = !v.isOpen;
+        if (v.isOpen&&v.status === 'COMPLETED') {
+          var imgAll = [];
+          imgAll[0] = {
+            id:0,
+            imageUrl:v.imageaUrl,
+            // fileName:(i+1)+".jpg",
+            fileName: filename[0],
+            isChoose :false
+          };
+          imgAll[1] = {
+            id:1,
+            imageUrl:v.imagebUrl,
+            // fileName:(i+1)+".jpg",
+            fileName: filename[1],
+            isChoose :false
+          };
+          for(let i =2 ;i<12;i++){
+            imgAll[i] = {
+              id:i,
+              imageUrl:v.resultUrl+(i-1)+".jpg",
+              fileName:filename[i],
+              isChoose :false
+            }
+          }
+          imgAll[12] = {
+            id:12,
+            imageUrl:v.resultUrl+"q1.jpg",
+            fileName:filename[12],
+          };
+          this.setState({
+            imageData: imgAll,
+          })
+        }
+        else {
+          this.setState({
+            imageData: [],
+          })
+        }
+      }
+      return v;
+    });
+    
+    // console.log(folderData)
+    this.setState({
+      folderData
+    })
+  }
+  //选取图片展示
+  imageOnChange(data) {
+    data = this.Utils.deepCopy(data);
+    let { imageData } = this.state;
+
+    imageData = imageData.map( v => {
+      if (!data.isChoose) {
+        v.isChoose = false;
+      }
+      if (data.id == v.id) {
+        v.isChoose = !v.isChoose;
+        if(v.isChoose)
+          this.setState({
+            mainImageData: v,
+          });
+          else
+          this.setState({
+            mainImageData: [],
+          })
+      }
+      return v;
+    });
+    this.setState({
+      imageData
+    })
+  }
+  //头部选择文件 测试 将第一个图片显示出来
+  selectImage(data){
+    let { imageData } = this.state;
+    if(imageData.length){
+      imageData.map( v => {
+          v.isChoose = false;
+      });
+      imageData[data].isChoose = true;
+      this.setState({
+        mainImageData: imageData[data],
+      })
+    }
+    else{
+      this.setState({
+        mainImageData: [],
+      })
+    }
+  }
+  //保存图片
+  // savetImage(){
+  //   const {mainImageData} = this.state;
+  //   if(mainImageData.imageUrl){
+  //     var aLink = document.getElementById('iddddddd');
+  //     var evt = document.createEvent("MouseEvents");
+  //     evt.initEvent("click", false, false);
+  //     aLink.dispatchEvent(evt);
+  //   }
+  //   else
+  //     alert('请选择图片')
+  // }
+
+  render() {
+    const { lg } = this.props;
+    const { folderData,imageData,mainImageData} = this.state;
+    let items = folderData.map( (v, index) => {
+      return (<Folder key={index} className={Style.folder} data={v} isOpen={v.isOpen} onChange={this.folderOnChange.bind(this)} />)
+    });
+    let images = imageData.map( (v,index) => {
+      return (
+        <Image key={index} data={v} isChoose={v.isChoose}  onChange={this.imageOnChange.bind(this)}/>
+      )
+    });
+    //大图片
+    let mainImage = (
+        <div className={mainImageData.isChoose ? Style.show:Style.hide}>
+          {/*<div className={Style.mainRight}>
+            <p>图片详情：{mainImageData.id}</p>
+            <p>{mainImageData.imageUrl}</p>
+          </div>*/}
+          <img src = {mainImageData.imageUrl} className={Style.mainLeft} />
+          {/*<a id={'iddddddd'} href={mainImageData.imageUrl} download/>*/}
+        </div>
+    );
+    return (
+      <div style={{height: "calc(100% - 2px)"}}>
+        {/*左边图片文件夹*/}
+        <div className={Style.left}>
+          <div className={Style.top}>{lg.resultList}</div>
+          {items}
+          {/* {items} */}
+        </div>
+
+        <div className={Style.right}>
+          {/*右上部图片浏览区域*/}
+          <div className={Style.top}>
+            <div style={{width: '2000px'}}>
+              {images}
+            </div>
+          </div>
+          {/*图片展示*/}
+          <div className={Style.main}>
+          {mainImage}
+          </div>
+        </div>
+
+      </div>
+
+    )
+  }
+}
+
+export default ShowArea;
