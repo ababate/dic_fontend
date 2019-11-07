@@ -1,0 +1,80 @@
+#开发环境配置
+image:
+  location: D:\upload\imagecul
+  baseUrl: http://192.168.137.1/imagecul/
+  remoteUrl: http://192.168.1.108/imgCul
+  postUrl: http://192.168.1.108/imgCul/add
+  queryUrl: http://192.168.1.108/imgCul/query
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/imgcul?characterEncoding=utf-8&useSSL=false
+
+  jpa:
+    show-sql: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  resources:
+    static-locations: file:${image.location},classpath:/static
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+
+
+server:
+  servlet:
+    context-path: /imagecul
+  port: 80
+#logging:
+#  pattern:
+#    console:
+#
+wechat:
+  pay:
+    appId: wx78d7fd19d75182f0
+    mchId: 1511486391
+    mchKey: SWS1012LOCCEN0906JINYU0705TOMOR1
+    keyPath: C:\Users\locce\Downloads\h5.p12\apiclient_cert.p12
+alipay:
+  appId: 2018090861233851
+  key: zg4IXPovCyEB/CE3+WIVtw==
+  returnUrl: http://teemortech.com/businessDeal/record.html #支付宝支付成功后会跳地址
+  notifyUrl: http://loccen.natapp1.cc/huibida/pay/notify #支付宝异步通知地址
+paypal:
+  client:
+    app:
+    secret:
+  mode: sandbox
+#wechat:
+#  pay:
+#    app
+#  mp:
+#      appId: wx78d7fd19d75182f0
+#      secret: 14247fe812c2e31e390cd6a9a7beaa4d
+#      token: loccen
+#      aesKey:
+#  mch:
+#      mpAppId: wx78d7fd19d75182f0
+#      mchId: 1511486391
+#      mchKey: SWS1012LOCCEN0906JINYU0705TOMOR1
+#      keyPath: C:\Users\locce\Downloads\h5.p12\apiclient_cert.p12
+#      notifyUrl: http://loccen.natapp1.cc/huibida/pay/notify
+#      returnUrl: http://www.52hbd.com:8080/#/main/order
+#management:
+#  endpoint:
+#    shutdown:
+#      enabled: true
+#      returnUrl: http://sws.natapp1.cc/#/main/order
+#      appID
+#      wx117f5cfadf080435
+#      appsecret
+#      60b85833afa83921e5b85388d4ff17ca

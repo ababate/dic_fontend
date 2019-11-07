@@ -1,0 +1,51 @@
+#开发环境配置
+image:
+  location: /java/springboot/imagecul/image
+  baseUrl: http://dicsys.natapp1.cc/imagecul/
+  remoteUrl: http://127.0.0.1:8888/imgCul
+  postUrl: http://127.0.0.1:8888/imgCul/add
+  queryUrl: http://127.0.0.1:8888/imgCul/query
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/imagecul?characterEncoding=utf-8&useSSL=false
+
+  jpa:
+    show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  resources:
+    static-locations: file:${image.location},classpath:/static
+
+  jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
+
+server:
+  servlet:
+    context-path: /imagecul
+  port: 9090
+#logging:
+#  pattern:
+#    console:
+#
+wechat:
+  pay:
+    #appId: wx78d7fd19d75182f0
+    mchId: 1511486391
+    mchKey: SWS1012LOCCEN0906JINYU0705TOMOR1
+    #keyPath: C:\Users\locce\Downloads\h5.p12\apiclient_cert.p12
+#alipay:
+  #appId: 2018090861233851
+  #key: zg4IXPovCyEB/CE3+WIVtw==
+  #returnUrl: http://teemortech.com/businessDeal/record.html #支付宝支付成功后会跳地址
+  #notifyUrl: http://loccen.natapp1.cc/huibida/pay/notify #支付宝异步通知地址
+#      appID
+#      wx117f5cfadf080435
+#      appsecret
+#      60b85833afa83921e5b85388d4ff17ca
