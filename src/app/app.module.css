@@ -4,7 +4,9 @@
   height: 98%;
   top: 1%;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: auto;
   background-color: #f8f8f8;
   /*background-color: #fcfcd2;*/
   border-radius: 4px;
@@ -23,7 +25,7 @@
   color: #FFFFFF;
   font-weight: 600;
   letter-spacing: 2px;
-  /*font-family: 'Î¢ÈíÑÅºÚ';*/ 
+  /*font-family: 'Î¢ï¿½ï¿½ï¿½Åºï¿½';*/ 
 }
 .header span{
   float: left;

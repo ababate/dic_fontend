@@ -1,7 +1,10 @@
 import React from 'react';
 import Component from '../../../core/MyComponent';
 import Style from "./setParams.module.css";
-import { Input, Modal } from 'antd';
+import {
+  Input,
+  Modal
+} from 'antd';
 
 class SetParams extends Component {
 
@@ -9,17 +12,16 @@ class SetParams extends Component {
     super();
     this.state = {
       visible: false,
-      lambda: '',
-      beta: '',
-      relevanceThreshold: '',
-      pyramid_levels: '',
-      pyramid_factor: '',
-      convergenceAccuracy: '',
-      coreNumber: '',
-      spaRes: ''
+      lambda: '40',
+      beta: '0.01',
+      relevanceThreshold: '0.001',
+      pyramid_levels: '6',
+      pyramid_factor: '0.5',
+      convergenceAccuracy: '0.001',
+      coreNumber: '1',
+      spaRes: '5'
     }
   }
-
   componentDidMount() {
     this.on('nav_setParams', () => {
       this.setState({
@@ -38,11 +40,17 @@ class SetParams extends Component {
     this.setState({
       visible: false,
     });
-    this.emit('setParams',this.Cache);
+    this.emit('setParams', this.Cache);
   };
 
   render() {
-    const { lg } = this.props;
+    const {
+      lg
+    } = this.props;
+    const {
+      beta,
+      lambda
+    } = this.state;
     return (
       <Modal
         title={lg.setParam}
@@ -59,19 +67,20 @@ class SetParams extends Component {
           λ <Input
             className={Style.input}
             //placeholder='λ(lambda)'
-            onChange={e => {this.setState({lambda: this.Cache.lambda=e.target.value})}}
-            value={this.Cache.lambda}
-            defaultValue={1}
+            placeholder = {'λ(lambda)     ' + 'default: ' + this.state.lambda}
+            onChange={e => {this.Cache.lambda=e.target.value}}
+           // value={this.Cache.lambda}
+            defaultValue={this.state.lambda}
           />
           </label>
           
           <label>
           β <Input
             className={Style.input}
-            //placeholder='β(beta)'
-            onChange={e => {this.setState({beta: this.Cache.beta=e.target.value})}}
-            value={this.Cache.beta}
-            defaultValue={1}
+            placeholder = {'β(beta)     ' + 'default: ' + this.state.beta}
+            onChange={e => {this.Cache.beta=e.target.value}}
+            //value={this.Cache.beta}
+            defaultValue={this.state.beta}
           />
           </label>
           
@@ -79,9 +88,10 @@ class SetParams extends Component {
           Pyramid Levels <Input
             className={Style.input}
             //placeholder='n(pyramid_levels)'
-            onChange={e => {this.setState({pyramid_levels: this.Cache.pyramid_levels=e.target.value})}}
-            value={this.Cache.pyramid_levels}
-            defaultValue={1}
+            placeholder = {'n(pyramid_levels)     ' + 'default: ' + this.state.pyramid_levels}
+            onChange={e => {this.Cache.pyramid_levels=e.target.pyramid_levels}}
+            //value={this.Cache.pyramid_levels}
+            defaultValue={this.state.pyramid_levels}
           />
           </label>
           
@@ -89,9 +99,10 @@ class SetParams extends Component {
           Pyramid Factor <Input
             className={Style.input}
             //placeholder='γ(pyramid_factor)'
-            onChange={e => {this.setState({pyramid_factor: this.Cache.pyramid_factor=e.target.value})}}
-            value={this.Cache.pyramid_factor}
-            defaultValue={1}
+            placeholder = {'n(pyramid_factor)     ' + 'default: ' + this.state.pyramid_factor}
+            onChange={e => {this.Cache.pyramid_factor=e.target.pyramid_factor}}
+            //value={this.Cache.pyramid_factor}
+            defaultValue={this.state.pyramid_factor}
           />
           </label>
           
@@ -99,9 +110,10 @@ class SetParams extends Component {
           Convergence Accuracy <Input
             className={Style.input}
             //placeholder={lg.convergenceAccuracy}
-            onChange={e => {this.setState({convergenceAccuracy: this.Cache.convergenceAccuracy=e.target.value})}}
-            value={this.Cache.convergenceAccuracy}
-            defaultValue={1}
+            placeholder = {'n(convergenceAccuracy)     ' + 'default: ' + this.state.convergenceAccuracy}
+            onChange={e => {this.Cache.convergenceAccuracy=e.target.convergenceAccuracy}}
+            // value={this.Cache.convergenceAccuracy}
+            defaultValue={this.state.convergenceAccuracy}
           />
           </label>
           
@@ -109,9 +121,10 @@ class SetParams extends Component {
           Core Number <Input
             className={Style.input}
             //placeholder={lg.coreNumber}
-            onChange={e => {this.setState({coreNumber: this.Cache.coreNumber=e.target.value})}}
-            value={this.Cache.coreNumber}
-            defaultValue={1}
+            placeholder = {'n(coreNumber)     ' + 'default: ' + this.state.coreNumber}
+            onChange={e => {this.Cache.coreNumber=e.target.coreNumber}}
+            // value={this.Cache.coreNumber}
+            defaultValue={this.state.coreNumber}
           />
           </label>
           
@@ -119,9 +132,10 @@ class SetParams extends Component {
           Relevance Threshold <Input
             className={Style.input}
             //placeholder={lg.relevanceThreshold}
-            onChange={e => {this.setState({relevanceThreshold: this.Cache.relevanceThreshold=e.target.value})}}
-            value={this.Cache.relevanceThreshold}
-            defaultValue={1}
+            placeholder = {'n(relevanceThreshold)     ' + 'default: ' + this.state.relevanceThreshold}
+            onChange={e => {this.Cache.relevanceThreshold=e.target.relevanceThreshold}}
+            // value={this.Cache.relevanceThreshold}
+            defaultValue={this.state.relevanceThreshold}
           />
           </label>
           
@@ -129,9 +143,10 @@ class SetParams extends Component {
           Spacial Resolution <Input
             className={Style.input}
             //placeholder={lg.relevanceThreshold}
-            onChange={e => {this.setState({spaRes: this.Cache.spaRes=e.target.value})}}
-            value={this.Cache.spaRes}
-            defaultValue={1}
+            placeholder = {'n(Spacial Resolution)     ' + 'default: ' + this.state.spaRes}
+            onChange={e => {this.Cache.spaRes=e.target.spaRes}}
+            // value={this.Cache.spaRes}
+            defaultValue={this.state.spaRes}
           />
           </label>
 

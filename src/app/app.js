@@ -92,9 +92,8 @@ class AppCmp extends Component {
     const { lg, isLogin, username } = this.state;
     const { pageName } = this.state;
     return (
-    <div style={{height:'100%'}}>
-    <div style={{height:'100%',
-    	           backgroundImage: 'url('+require('./images/appbackground.png')+')'}}>
+      <div style={{height:'100%',width:'100%'}}>
+      <div style={{height:790,width:1440}}>
       <div className={Style.wrap}>
         <header className={Style.header}>
           <img src='./images/logo1.ico'/>
