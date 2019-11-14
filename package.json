@@ -1,0 +1,37 @@
+{
+  "name": "imgcul",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.10.10",
+    "babel-plugin-import": "^1.11.0",
+    "react": "^16.6.1",
+    "react-app-rewired": "^1.6.2",
+    "react-dom": "^16.6.1",
+    "react-image-crop": "^8.3.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "recharts": "^1.7.1"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "increase-memory-limit": "^1.0.7"
+  },
+  "scripts": {
+    "start": "react-app-rewired start --max_old_space_size=4096",
+    "build": "react-app-rewired build --max_old_space_size=4096",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
+  },
+  "proxy": "http://127.0.0.1:9090"
+}
