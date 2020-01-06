@@ -1,5 +1,11 @@
 import React from 'react';
-import { Upload, Icon, Modal, message,List } from 'antd';
+import {
+  Upload,
+  Icon,
+  Modal,
+  message,
+  List
+} from 'antd';
 import Component from '../../core/MyComponent';
 import Folder from './folder';
 import Image from './image';
@@ -20,7 +26,7 @@ class ProjectArea extends Component {
     super();
     this.state = {
       projectData: [],
-      curProjectInfo:{},
+      curProjectInfo: {},
       imageData: [],
       fileA: {},
       fileB: {},
@@ -30,16 +36,15 @@ class ProjectArea extends Component {
   }
 
   componentWillUnmount() {
-    const arr = ['nav_open', 'nav_chooseImage', 'nav_deleteImage','nav_chooseSpecial'
-      , 'nav_chooseAlgorithm', 'nav_setParams', 'nav_run'];
+    const arr = ['nav_open', 'nav_chooseImage', 'nav_deleteImage', 'nav_chooseSpecial', 'nav_chooseAlgorithm', 'nav_setParams', 'nav_run'];
     arr.forEach(v => {
       this.off(v);
     })
   }
 
-  isContain(arr,v){
-    for(var i = 0;i < arr.length;i++){
-      if(arr[i] === v) return true;
+  isContain(arr, v) {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] === v) return true;
     }
     return false;
   }
@@ -50,32 +55,32 @@ class ProjectArea extends Component {
       type: 'GET',
       url: '/imagecul/project/get/user',
       success: res => {
-        if(res.code === 200){
+        if (res.code === 200) {
 
           let curProject = {};
-          res.data.forEach(function (v,index) {
+          res.data.forEach(function(v, index) {
 
-            if(v.status === "OPEN")
+            if (v.status === "OPEN")
               curProject = v;
           });
 
           // 获取项目的图片
           this.Utils.baseFetch({
             type: 'GET',
-            url: '/imagecul/project/list/images?id='+curProject.id,
+            url: '/imagecul/project/list/images?id=' + curProject.id,
             success: res => {
-              if(res.code === 200){
-                res.data.map((v,index) => {
-                    if(this.isContain(curProject.referenceImages,v.id)){
-                      this.setState({
-                        fileA: v,
-                      })
-                    }
-                    if(this.isContain(curProject.deformedImages,v.id)){
-                      this.setState({
-                        fileB: v,
-                      })
-                    }
+              if (res.code === 200) {
+                res.data.map((v, index) => {
+                  if (this.isContain(curProject.referenceImages, v.id)) {
+                    this.setState({
+                      fileA: v,
+                    })
+                  }
+                  if (this.isContain(curProject.deformedImages, v.id)) {
+                    this.setState({
+                      fileB: v,
+                    })
+                  }
                 });
                 this.setState({
                   imageData: res.data,
@@ -112,7 +117,7 @@ class ProjectArea extends Component {
       }
     });
 
-    this.on('nav_referenceImage',(obj) => {
+    this.on('nav_referenceImage', (obj) => {
       if (obj.pageName !== 'project') {
         this.emit('changePage', 'project');
       }
@@ -123,7 +128,7 @@ class ProjectArea extends Component {
       })
     });
 
-    this.on('nav_deformedImage',(obj) => {
+    this.on('nav_deformedImage', (obj) => {
       if (obj.pageName !== 'project') {
         this.emit('changePage', 'project');
       }
@@ -145,35 +150,36 @@ class ProjectArea extends Component {
       if (obj.pageName !== 'project') {
         this.emit('changePage', 'project');
       }
-      console.info(1,this.Cache);
+      console.info(1, this.Cache);
       this.Utils.baseFetch({
         type: 'GET',
         url: '/imagecul/task/run',
         success: res => {
-          if(res.code === 200){
+          if (res.code === 200) {
             console.log(res.data);
           }
         }
       });
     });
 
-    this.on('setParams',(obj) => {
-      const { lambda,
-      	      beta,
-      	      pyramid_levels,
-      	      pyramid_factor,
-      	      convergenceAccuracy,
-      	      coreNumber,
-      	      relevanceThreshold,
-      	      algorithm,
-      	      spaRes,
-              domainX,
-              domainY,
-              domainW,
-              domainH,
-              croppedImg,
-      	    } = obj;
-      
+    this.on('setParams', (obj) => {
+      const {
+        lambda,
+        beta,
+        pyramid_levels,
+        pyramid_factor,
+        convergenceAccuracy,
+        coreNumber,
+        relevanceThreshold,
+        algorithm,
+        spaRes,
+        domainX,
+        domainY,
+        domainW,
+        domainH,
+        croppedImg,
+      } = obj;
+
       let project = this.state.curProjectInfo;
       project.lambda = lambda;
       project.beta = beta;
@@ -213,26 +219,28 @@ class ProjectArea extends Component {
       preparams.domainW = domainW;
       preparams.domainH = domainH;
 
-      var params = JSON.stringify(preparams).replace("{","dd").replace("}","bb");
+      var params = JSON.stringify(preparams).replace("{", "dd").replace("}", "bb");
       this.Utils.baseFetch({
         type: 'GET',
-        url: '/imagecul/project/setParams?params='+params,
+        url: '/imagecul/project/setParams?params=' + params,
         success: res => {
-          if(res.code === 200){
+          if (res.code === 200) {
             console.log(res.data);
           }
         }
       });
 
     });
-    
-    this.on('login',this.requestProjectData);
+
+    this.on('login', this.requestProjectData);
   }
 
   // 替换中心的图片
   setImage(image) {
-    const { curImage } = this.state;
-    if(curImage === 'A'){
+    const {
+      curImage
+    } = this.state;
+    if (curImage === 'A') {
       this.setState({
         fileA: image,
       });
@@ -240,25 +248,25 @@ class ProjectArea extends Component {
       // 保存图片
       this.Utils.baseFetch({
         type: 'GET',
-        url: '/imagecul/project/saveImage?type=A&imageid='+image.id,
+        url: '/imagecul/project/saveImage?type=A&imageid=' + image.id,
         success: res => {
-          if(res.code === 200){
+          if (res.code === 200) {
             console.log(res.data);
           }
         }
       });
 
     }
-    if(curImage === 'B'){
+    if (curImage === 'B') {
       this.setState({
         fileB: image,
       });
 
       this.Utils.baseFetch({
         type: 'GET',
-        url: '/imagecul/project/saveImage?type=B&imageid='+image.id,
+        url: '/imagecul/project/saveImage?type=B&imageid=' + image.id,
         success: res => {
-          if(res.code === 200){
+          if (res.code === 200) {
             console.log(res.data);
           }
         }
@@ -268,37 +276,41 @@ class ProjectArea extends Component {
 
   resetImage(img) {
     this.setState(
-      img === 'A' ? { fileA: {} } : { fileB: {} }
+      img === 'A' ? {
+        fileA: {}
+      } : {
+        fileB: {}
+      }
     )
   }
 
   handleChange(info) {
     if (info.file.status === 'done') {
       //文件上传完成，将返回文件url添加到imagedate中
-      const imageInfo  = info.file.response.data;
+      const imageInfo = info.file.response.data;
       this.setState({
-        imageData: [...this.state.imageData,imageInfo]
+        imageData: [...this.state.imageData, imageInfo]
       })
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
     }
   }
 
-  onProjectAdd(projectData){
+  onProjectAdd(projectData) {
     this.setState({
-      projectData:[...this.state.projectData,projectData],
+      projectData: [...this.state.projectData, projectData],
     })
     this.onProjectChange(projectData);
   }
 
-  onProjectChange(project){
+  onProjectChange(project) {
 
     // 更改项目状态信息
     this.Utils.baseFetch({
       type: 'GET',
-      url: '/imagecul/project/open?id='+project.id,
+      url: '/imagecul/project/open?id=' + project.id,
       success: res => {
-        if(res.code === 200){
+        if (res.code === 200) {
           console.log(res.data);
         }
       }
@@ -306,16 +318,16 @@ class ProjectArea extends Component {
     // 获取项目的图片
     this.Utils.baseFetch({
       type: 'GET',
-      url: '/imagecul/project/list/images?id='+project.id,
+      url: '/imagecul/project/list/images?id=' + project.id,
       success: res => {
-        if(res.code === 200){
+        if (res.code === 200) {
           let fileA = {};
           let fileB = {};
-          res.data.map((v,index) => {
-            if(this.isContain(project.referenceImages,v.id)){
+          res.data.map((v, index) => {
+            if (this.isContain(project.referenceImages, v.id)) {
               fileA = v;
             }
-            if(this.isContain(project.deformedImages,v.id)){
+            if (this.isContain(project.deformedImages, v.id)) {
               fileB = v;
             }
           });
@@ -323,16 +335,16 @@ class ProjectArea extends Component {
             imageData: res.data,
             fileA: fileA,
             fileB: fileB,
-            curProjectInfo:project,
+            curProjectInfo: project,
           })
         }
       }
     });
-    
+
     this.setCache(project);
   }
 
-  setCache(project){
+  setCache(project) {
     this.Cache.lambda = project.lambda;
     this.Cache.beta = project.beta;
     this.Cache.pyramid_levels = project.pyramidLevels;
@@ -349,9 +361,17 @@ class ProjectArea extends Component {
   }
 
   render() {
-    const { lg } = this.props;
-    const { curProjectInfo,imageData,fileA,fileB,croppedImg } = this.state;
-    let images = imageData.map( (v,index) => {
+    const {
+      lg
+    } = this.props;
+    const {
+      curProjectInfo,
+      imageData,
+      fileA,
+      fileB,
+      croppedImg
+    } = this.state;
+    let images = imageData.map((v, index) => {
       return (
         <Image key={index}
                data={v}
@@ -441,7 +461,7 @@ class ProjectArea extends Component {
         <div className={Style.right}>
           {/*右上部图片浏览区域*/}
           <div className={Style.top}>
-            <div style={{width: '2000px'}}>
+            <div>
               {images}
               <Upload
                 action="/imagecul/image/upload"
@@ -452,10 +472,12 @@ class ProjectArea extends Component {
                 showUploadList = {false}
                 name={"image"}
               >
-                <div>
+              {typeof (curProjectInfo.name) === "undefined" ? null : 
+              (<div>
                   <Icon type="plus" />
                   <div className="ant-upload-text">{lg.uploadfile}</div>
-                </div>
+                </div>)}
+                
               </Upload>
             </div>
           </div>

@@ -1,0 +1,9 @@
+.body{
+  height:100%;
+  weight:100%;
+  margin:auto;
+  background-color: #ecffd7;
+  align-self: auto;
+  align-content: center;
+  align-items: center;
+}

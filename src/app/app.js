@@ -1,7 +1,11 @@
 import React from 'react';
 import Component from '../core/MyComponent';
 import Style from './app.module.css';
-import { Icon, Drawer,message } from 'antd';
+import {
+  Icon,
+  Drawer,
+  message
+} from 'antd';
 import Pages from './pages';
 import Footer from './apphelper/footer';
 import Step from './apphelper/step';
@@ -20,10 +24,15 @@ class AppCmp extends Component {
   }
   emitMsg = (event) => {
     const now = new Date();
-    const timeStr = now.getFullYear() + '-' + (now.getMonth()+1) + '-' + now.getDate() + ' '
-      + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-    const { pageName } = this.state;
-    this.emit(event,{ time:timeStr, pageName });
+    const timeStr = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + ' ' +
+      now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+    const {
+      pageName
+    } = this.state;
+    this.emit(event, {
+      time: timeStr,
+      pageName
+    });
     // this.setState({
     //   pageName
     // })
@@ -65,23 +74,26 @@ class AppCmp extends Component {
     // 设置语言包
     const lg = this.Utils.getCookie('lg');
     if (lg === 'eng') {
-      this.setState({lg: ENG});
+      this.setState({
+        lg: ENG
+      });
     } else {
-      this.setState({lg: ZH});
+      this.setState({
+        lg: ZH
+      });
     }
     // 是否登陆
     const token = this.Utils.getCookie('token');
-    if(token){
+    if (token) {
       // 登陆成功后，获取用户信息
       this.Utils.baseFetch({
-        type:'GET',
-        url:'/imagecul/user/get',
+        type: 'GET',
+        url: '/imagecul/user/get',
         success: res => {
-          if(res.code === 200){
-            this.emit('addInfo', this.state.lg.loginAccount+res.data.username);
-            this.emit('login',res.data.username);
-          }
-          else {
+          if (res.code === 200) {
+            this.emit('addInfo', this.state.lg.loginAccount + res.data.username);
+            this.emit('login', res.data.username);
+          } else {
             message.error(res.msg);
           }
         },
@@ -89,13 +101,19 @@ class AppCmp extends Component {
     }
   }
   render() {
-    const { lg, isLogin, username } = this.state;
-    const { pageName } = this.state;
+    const {
+      lg,
+      isLogin,
+      username
+    } = this.state;
+    const {
+      pageName
+    } = this.state;
     return (
       <div className={Style.body} align="center">
     <div style={{
-        height:790,
-        width:1640
+        height: 800,
+        width:1480
     }} align =" center">
       <div className={Style.wrap}>
         <header className={Style.header}>
@@ -183,14 +201,12 @@ class AppCmp extends Component {
             <div className={Style.title} onClick={()=>{this.emitMsg('nav_register')}}>{lg.register}</div>
           </div>
         </div>
-
+ 
         <div className={Style.content}>
           <Pages pageName={pageName} lg={lg}/>
         </div>
-        
-        <Footer/>
         <Step/>
-
+        <Footer/>      
       </div>
      </div>
     </div>

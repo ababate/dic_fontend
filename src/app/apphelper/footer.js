@@ -1,7 +1,10 @@
 import React from 'react';
 import Component from '../../core/MyComponent';
 import Style from './footer.module.css';
-import { Icon, Drawer } from 'antd';
+import {
+  Icon,
+  Drawer
+} from 'antd';
 class Footer extends Component {
   constructor() {
     super();
@@ -22,8 +25,8 @@ class Footer extends Component {
   }
   addFooterInfo = (msg) => {
     const now = new Date();
-    const timeStr = now.getFullYear() + '-' + (now.getMonth()+1) + '-' + now.getDate() + ' '
-      + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+    const timeStr = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + ' ' +
+      now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
     const infos = this.state.infos;
     infos.push(timeStr + '  ' + msg);
     this.setState({
@@ -37,13 +40,15 @@ class Footer extends Component {
     this.on('addInfo', this.addFooterInfo);
   }
   render() {
-    const { infos } = this.state;
+    const {
+      infos
+    } = this.state;
     let items = [];
     let curMsg = '';
     if (infos.length > 0) {
       curMsg = infos[infos.length - 1];
     }
-    items = infos.map( (v, index) => {
+    items = infos.map((v, index) => {
       return (
         <p key={index}>{v}</p>
       )
@@ -52,7 +57,7 @@ class Footer extends Component {
     return (
       <div className={Style.footer}>
         <Drawer
-          height={300}
+          height = {400}
           // title="历史信息"
           placement={'bottom'}
           closable={false}

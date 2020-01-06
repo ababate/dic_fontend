@@ -45,11 +45,12 @@
 	/* height: 18%; */
 	height: 130px;
 	width: 100%;
-	overflow-y: hidden;
+	overflow-y: auto;
 	overflow-x: auto;
 	/* float: left; */
 	/*background-color: #F9F9F9;*/
 	background-color: #e3e3e3;
+	display: inline-block;
 }
 .right .top .folder{
 	height: 120px;
