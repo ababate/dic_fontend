@@ -40,6 +40,15 @@ class SetParams extends Component {
     this.setState({
       visible: false,
     });
+    this.Cache.lambda = this.state.lambda;
+    this.Cache.beta = this.state.beta;
+    this.Cache.relevanceThreshold = this.state.relevanceThreshold;
+    this.Cache.pyramid_levels = this.state.pyramid_levels;
+    this.Cache.pyramid_factor = this.state.pyramid_factor;
+    this.Cache.convergenceAccuracy = this.state.convergenceAccuracy;
+    this.Cache.coreNumber = this.state.coreNumber;
+    this.Cache.spaRes = this.state.spaRes;
+    this.emit('setParams', this.Cache);
     this.emit('setParams', this.Cache);
   };
 
@@ -67,8 +76,8 @@ class SetParams extends Component {
           λ <Input
             className={Style.input}
             //placeholder='λ(lambda)'
-            placeholder = {'λ(lambda)     ' + 'default: ' + this.state.lambda}
-            onChange={e => {this.Cache.lambda=e.target.value}}
+            placeholder = {'λ(lambda)     ' + 'default: ' + 40}
+            onChange={e => {this.state.lambda=e.target.value}}
            // value={this.Cache.lambda}
             defaultValue={this.state.lambda}
           />
@@ -77,8 +86,8 @@ class SetParams extends Component {
           <label>
           β <Input
             className={Style.input}
-            placeholder = {'β(beta)     ' + 'default: ' + this.state.beta}
-            onChange={e => {this.Cache.beta=e.target.value}}
+            placeholder = {'β(beta)     ' + 'default: ' + 0.01}
+            onChange={e => {this.state.beta=e.target.value}}
             //value={this.Cache.beta}
             defaultValue={this.state.beta}
           />
@@ -88,8 +97,8 @@ class SetParams extends Component {
           Pyramid Levels <Input
             className={Style.input}
             //placeholder='n(pyramid_levels)'
-            placeholder = {'n(pyramid_levels)     ' + 'default: ' + this.state.pyramid_levels}
-            onChange={e => {this.Cache.pyramid_levels=e.target.pyramid_levels}}
+            placeholder = {'n(pyramid_levels)     ' + 'default: ' + 6}
+            onChange={e => {this.state.pyramid_levels=e.target.value}}
             //value={this.Cache.pyramid_levels}
             defaultValue={this.state.pyramid_levels}
           />
@@ -99,8 +108,8 @@ class SetParams extends Component {
           Pyramid Factor <Input
             className={Style.input}
             //placeholder='γ(pyramid_factor)'
-            placeholder = {'n(pyramid_factor)     ' + 'default: ' + this.state.pyramid_factor}
-            onChange={e => {this.Cache.pyramid_factor=e.target.pyramid_factor}}
+            placeholder = {'n(pyramid_factor)     ' + 'default: ' + 0.5}
+            onChange={e => {this.state.pyramid_factor=e.target.value}}
             //value={this.Cache.pyramid_factor}
             defaultValue={this.state.pyramid_factor}
           />
@@ -110,8 +119,8 @@ class SetParams extends Component {
           Convergence Accuracy <Input
             className={Style.input}
             //placeholder={lg.convergenceAccuracy}
-            placeholder = {'n(convergenceAccuracy)     ' + 'default: ' + this.state.convergenceAccuracy}
-            onChange={e => {this.Cache.convergenceAccuracy=e.target.convergenceAccuracy}}
+            placeholder = {'n(convergenceAccuracy)     ' + 'default: ' + 0.001}
+            onChange={e => {this.state.convergenceAccuracy=e.target.value}}
             // value={this.Cache.convergenceAccuracy}
             defaultValue={this.state.convergenceAccuracy}
           />
@@ -121,8 +130,8 @@ class SetParams extends Component {
           Core Number <Input
             className={Style.input}
             //placeholder={lg.coreNumber}
-            placeholder = {'n(coreNumber)     ' + 'default: ' + this.state.coreNumber}
-            onChange={e => {this.Cache.coreNumber=e.target.coreNumber}}
+            placeholder = {'n(coreNumber)     ' + 'default: ' + 1}
+            onChange={e => {this.state.coreNumber=e.target.value}}
             // value={this.Cache.coreNumber}
             defaultValue={this.state.coreNumber}
           />
@@ -132,8 +141,8 @@ class SetParams extends Component {
           Relevance Threshold <Input
             className={Style.input}
             //placeholder={lg.relevanceThreshold}
-            placeholder = {'n(relevanceThreshold)     ' + 'default: ' + this.state.relevanceThreshold}
-            onChange={e => {this.Cache.relevanceThreshold=e.target.relevanceThreshold}}
+            placeholder = {'n(relevanceThreshold)     ' + 'default: ' + 0.001}
+            onChange={e => {this.state.relevanceThreshold=e.target.value}}
             // value={this.Cache.relevanceThreshold}
             defaultValue={this.state.relevanceThreshold}
           />
@@ -143,8 +152,8 @@ class SetParams extends Component {
           Spacial Resolution <Input
             className={Style.input}
             //placeholder={lg.relevanceThreshold}
-            placeholder = {'n(Spacial Resolution)     ' + 'default: ' + this.state.spaRes}
-            onChange={e => {this.Cache.spaRes=e.target.spaRes}}
+            placeholder = {'n(Spacial Resolution)     ' + 'default: ' + 5}
+            onChange={e => {this.state.spaRes=e.target.value}}
             // value={this.Cache.spaRes}
             defaultValue={this.state.spaRes}
           />
